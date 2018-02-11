@@ -1,0 +1,9 @@
+bash startkafka.sh
+
+
+./bin/kafka-topics.sh --zookeeper master.hadoop:2181,slave1.hadoop:2181,slave2.hadoop:2181 --topic wordcount --replication-factor 1 --partitions 1 --create
+
+
+./bin/kafka-console-producer.sh --topic wordcount --broker-list master.hadoop:9092,master.hadoop:9092,master.hadoop:9092
+
+./bin/kafka-console-consumer.sh --zookeeper master.hadoop:2181,slave1.hadoop:2181,slave2.hadoop:2181 --from-beginning --topic test

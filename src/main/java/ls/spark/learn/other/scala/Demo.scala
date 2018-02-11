@@ -1,4 +1,4 @@
-package leap.spark.scala
+package ls.spark.learn.other.scala
 
 /**
   * Created by FromX on 2017/3/20.

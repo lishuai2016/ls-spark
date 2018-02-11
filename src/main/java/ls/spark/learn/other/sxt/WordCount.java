@@ -1,8 +1,7 @@
-package ls.spark.simple;
+package ls.spark.learn.other.sxt;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -16,9 +15,6 @@ import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
 import scala.Tuple2;
 
-/**
- * spark 通过 socket监听 网络端口 统计单词
- */
 public class WordCount {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -30,20 +26,17 @@ public class WordCount {
 		
 		// 首先创建输入DStream,代表一个数据源比如从socket或kafka来持续不断的进入实时数据流
 		// 创建一个监听端口的socket数据流,这里面就会有每隔一秒生成一个RDD,RDD的元素类型为String就是一行一行的文本
-		JavaReceiverInputDStream<String> lines = jssc.socketTextStream("master.com", 9999);
+		JavaReceiverInputDStream<String> lines = jssc.socketTextStream("spark001", 9999);
 		// 接着Spark Core提供的算子直接应用在DStream上即可,算子底层会应用在里面的每个RDD上面,RDD转换后的新RDD会作为新DStream中RDD
 		JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>(){
 
 			private static final long serialVersionUID = 1L;
 
-
 			@Override
 			public Iterator<String> call(String line) throws Exception {
-				String[] arr = line.split(" ");
-				List<String> list = Arrays.asList(arr);
-				return list.iterator();
+				return Arrays.asList(line.split(" ")).iterator();
 			}
-
+			
 		});
 		
 		JavaPairDStream<String, Integer> pairs = words.mapToPair(new PairFunction<String, String, Integer>(){

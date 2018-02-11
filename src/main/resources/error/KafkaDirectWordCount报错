@@ -1,0 +1,6 @@
+Exception in thread "main" java.lang.ClassCastException:
+kafka.cluster.BrokerEndPoint cannot be cast to kafka.cluster.Broker
+
+还没有解决
+
+

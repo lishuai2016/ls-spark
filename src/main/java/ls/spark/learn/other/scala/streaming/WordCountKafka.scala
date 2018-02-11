@@ -1,4 +1,4 @@
-package leap.spark.scala.streaming
+package ls.spark.learn.other.scala.streaming
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Durations, StreamingContext}

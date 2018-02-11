@@ -20,7 +20,7 @@ public class WordCount {
 	public static void main(String[] args) {
 		SparkConf conf = new SparkConf().setAppName("WordCount").setMaster("local");
 		JavaSparkContext sc = new JavaSparkContext(conf);
-		
+
 		JavaRDD<String> lines = sc.textFile("spark.txt");
 		JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>(){
 
@@ -32,7 +32,7 @@ public class WordCount {
 				return Arrays.asList(words).iterator();
 
 			}
-			
+
 		});
 		JavaPairRDD<String, Integer> pairs = words.mapToPair(new PairFunction<String, String, Integer>() {
 
@@ -42,7 +42,7 @@ public class WordCount {
 			public Tuple2<String, Integer> call(String word) throws Exception {
 				return new Tuple2<String, Integer>(word, 1);
 			}
-			
+
 		});
 		JavaPairRDD<String, Integer> wcs = pairs.reduceByKey(new Function2<Integer, Integer, Integer>(){
 			private static final long serialVersionUID = 1L;
@@ -58,9 +58,9 @@ public class WordCount {
 			@Override
 			public Tuple2<Integer, String> call(Tuple2<String, Integer> tuple)
 					throws Exception {
-				return new Tuple2<Integer, String>(tuple._2,tuple._1);
+				return new Tuple2<Integer, String>(tuple._2(),tuple._1());
 			}
-			
+
 		});
 		JavaPairRDD<Integer, String> sortedwcs = tempwcs.sortByKey(false);
 		JavaPairRDD<String, Integer> resultwcs = sortedwcs.mapToPair(new PairFunction<Tuple2<Integer, String>, String, Integer>(){
@@ -69,19 +69,19 @@ public class WordCount {
 			@Override
 			public Tuple2<String, Integer> call(Tuple2<Integer, String> tuple)
 					throws Exception {
-				return new Tuple2<String, Integer>(tuple._2,tuple._1);
+				return new Tuple2<String, Integer>(tuple._2(),tuple._1());
 			}
-			
+
 		});
 		resultwcs.foreach(new VoidFunction<Tuple2<String, Integer>>(){
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void call(Tuple2<String, Integer> wc) throws Exception {
-				System.out.println(wc._1 + "   " + wc._2);
+				System.out.println(wc._1() + "   " + wc._2());
 			}
 		});
-		
+
 		sc.close();
 	}
 }

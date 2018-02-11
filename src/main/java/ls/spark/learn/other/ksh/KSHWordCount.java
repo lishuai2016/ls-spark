@@ -1,4 +1,4 @@
-package ls.spark.ksh;
+package ls.spark.learn.other.ksh;
 
 
 import hbase.impl.HbaseDaoImpl;
@@ -9,11 +9,17 @@ import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
 import org.apache.spark.streaming.Durations;
-import org.apache.spark.streaming.api.java.*;
+import org.apache.spark.streaming.api.java.JavaDStream;
+import org.apache.spark.streaming.api.java.JavaPairDStream;
+import org.apache.spark.streaming.api.java.JavaPairReceiverInputDStream;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
 import scala.Tuple2;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by FromX on 2017/3/17.
@@ -91,9 +97,9 @@ public class KSHWordCount {
                         Tuple2<String, Integer> wordcount = null;
                         while (wordcounts.hasNext()) {
                             wordcount = wordcounts.next();
-                            dao.insert("sparkWC", wordcount._1 + "_" + wordcount._2, "f1",
-                                    new String[]{wordcount._1},
-                                    new String[]{wordcount._2.toString()});
+                            dao.insert("sparkWC", wordcount._1() + "_" + wordcount._2(), "f1",
+                                    new String[]{wordcount._1()},
+                                    new String[]{wordcount._2().toString()});
                         }
                     }
                 });

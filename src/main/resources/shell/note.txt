@@ -1,0 +1,6 @@
+产生storm的数据源
+yum install nc
+
+nc -lk 9999
+
+通过监听端口接收到的数据来作为输入

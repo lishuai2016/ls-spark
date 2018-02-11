@@ -10,10 +10,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <spark.version>2.0.0</spark.version>
         <storm.version>1.0.2</storm.version>
-        <kafka.version>0.9.0.0</kafka.version>
+        <kafka.version>0.9.0.1</kafka.version>
         <hbase.version>1.3.0</hbase.version>
     </properties>
 
@@ -37,7 +37,7 @@
             <version>${spark.version}</version>
         </dependency>
 
-        <!-- kafka -->
+
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
