@@ -7,10 +7,10 @@ import org.apache.spark.storage.StorageLevel
 object WordCount {
 
   def main(args: Array[String]): Unit = {
-
+    //println("hello world")
     val conf = new SparkConf().setAppName("wordcount").setMaster("local[1]")
     val sc = new SparkContext(conf)
-    
+
     //    val lines = sc.textFile("hdfs://spark001:9000/spark.txt", 1)
     val lines = sc.textFile("spark.txt", 1)
     val words = lines.flatMap { line => line.split(" ") }

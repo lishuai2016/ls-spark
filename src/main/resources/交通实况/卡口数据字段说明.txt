@@ -1,0 +1,29 @@
+sjkk_gcjl 所有字段名称解释：
+    
+    kkbh   卡口编号    
+    jlbh   记录编号    
+    hphm   号牌号码    
+    hpzl   号牌种类    
+    jgsj   经过时间   
+    xszt   行驶状态  
+    clsd   车辆速度 
+    cdfx   车道方向    
+    cwkc   车身长度   
+    hpys   号牌颜色   
+    cllx   车辆类型    
+    xzqh   行政区号  
+    sbbh   设备编号  
+    cdbh   车道编号   
+    csys   车身颜色   
+    clpp   车辆品牌   
+    tplx   图片类型  
+    tztp   特征图片  
+    qjtp   全景图片 
+    rksj   入库时间  
+    yzsj   //这个字段暂时没用
+    sjcz   时间差值 
+    ylzd1  预留字段1
+    ylzd2  预留字段2
+    ylzd3  预留字段3
+    ylzd4  预留字段4
+    ylzd5  预留字段5
