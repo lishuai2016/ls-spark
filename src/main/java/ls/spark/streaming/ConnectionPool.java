@@ -9,7 +9,7 @@ public class ConnectionPool {
 
 	// 静态连接队列
 	private static LinkedList<Connection> connectionQueue;
-	
+
 	static{
 		// 加载驱动
 		try {
@@ -18,26 +18,26 @@ public class ConnectionPool {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 获取连接多线程访问并发控制
 	public synchronized static Connection getConnection(){
-		
+
 		try {
 			if(connectionQueue==null){
 				connectionQueue = new LinkedList<Connection>();
 				for(int i=0; i<10; i++){
-					Connection conn = DriverManager.getConnection("jdbc:mysql://spark001:3306/test",
-							"root","123123");
+					Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb",
+							"root","123456");
 					connectionQueue.push(conn);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return connectionQueue.poll();
 	}
-	
+
 	public static void returnConnection(Connection conn){
 		connectionQueue.push(conn);
 	}

@@ -1,5 +1,6 @@
 package ls.spark.streaming;
 
+import ls.spark.HadoopBase;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
@@ -15,16 +16,17 @@ import java.util.Iterator;
 
 
 /**
- * hdfs从hdfs上读取某个目录下新增的文件,旧文件不读
+ * hdfs从hdfs上读取某个目录下新增的文件,旧文件不读（有问题）
  */
-public class HDFSWordCount {
+public class HDFSWordCount extends HadoopBase {
 
 	public static void main(String[] args) throws InterruptedException {
 		SparkConf conf = new SparkConf().setAppName("wordcount").setMaster("local[2]");
         //每个5秒钟读取一次新增文件
 		JavaStreamingContext jssc = new JavaStreamingContext(conf,Durations.seconds(5));
 
-		JavaDStream<String> lines = jssc.textFileStream("hdfs://master.hadoop:9000/input");
+		// 首先，使用JavaStreamingContext的textFileStream()方法，针对HDFS目录创建输入数据流
+		JavaDStream<String> lines = jssc.textFileStream("D:\\spark-warehouse\\streaming\\input");
 
 		JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>(){
 
